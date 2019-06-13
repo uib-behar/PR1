@@ -9,6 +9,7 @@ public class Kunden {
 
 	public Kunden(String name) {
 		this.name = name;
+		setKundenNr();
 
 	}
 
@@ -21,7 +22,7 @@ public class Kunden {
 	}
 
 	public void setKundenNr() {
-		int random = (int) ((Math.random()*10)+1);
+		int random = (int) ((Math.random()*10));
 		int nr = 1;
 		this.kundenNr = "" + name.charAt(0) + random + nr;
 		nr++;
@@ -48,15 +49,9 @@ public class Kunden {
 
 	}
 
-	public static void kundenDatenAnlegen(Kunden kunde, ArrayList<Kunden> kundenListe) {
-
-		kundenListe.add(kunde);
-
-		for (int i = 0; i < kundenListe.size(); i++) {
-			if (kundenListe.get(i).getName().equals(kunde.getName())) {
-				kundenListe.get(i).setKundenNr();
-			}
-		}
+	public static void kundenDatenAnlegen(Kunden kunde) {
+		
+		kunde.setKundenNr();
 
 		System.out.println("Es wurde ein neuer Kundenstamm angelegt: " + "\nIhre KundenNr lautet: "
 				+ kunde.getKundenNr() + "\n Name: " + kunde.getName());
@@ -82,16 +77,16 @@ public class Kunden {
 
 	}
 
-	public void wunschAutowählen(Kunden kunde, int position) {
+	public void wunschAutowählen(Kunden kunde, int position, AutoVermietung av) {
 
-		for(int i = 0; i < AutoVermietung.carStorage.size(); i++) {
+		for(int i = 0; i < av.carStorage.size(); i++) {
 
-			if(AutoVermietung.getCarStorage().get(i).isVermietet() == false) {
-				kunde.addAuto(AutoVermietung.getCarStorage().get(position-1));
-				AutoVermietung.getCarStorage().get(position-1).setVermietet(true);
+			if(av.getCarStorage().get(i).isVermietet() == false) {
+				kunde.addAuto(av.getCarStorage().get(position-1));
+				av.getCarStorage().get(position-1).setVermietet(true);
 
-				if(AutoVermietung.getCarStorage().get(i).isVermietet()==true) {
-					listeSortieren();
+				if(av.getCarStorage().get(i).isVermietet()==true) {
+					listeSortieren(av);
 				}
 								
 				break;
@@ -104,16 +99,18 @@ public class Kunden {
 
 	}
 
-	public void listeSortieren() {
+	public void listeSortieren(AutoVermietung av) {
 
 		Auto temp = null;
 
-		for(int i = 0; i < AutoVermietung.carStorage.size(); i++) {
-			for(int j = i+1; j<AutoVermietung.carStorage.size(); j++) {
-				if(AutoVermietung.getCarStorage().get(i).isVermietet()==true) {
-					temp = AutoVermietung.carStorage.get(i);
-					AutoVermietung.carStorage.set(i, AutoVermietung.carStorage.get(j));
-					AutoVermietung.carStorage.set(j, temp);
+		for(int i = 0; i < av.carStorage.size(); i++) {
+			for(int j = i+1; j<av.carStorage.size(); j++) {
+				
+				if(av.getCarStorage().get(i).isVermietet()==true) {
+					
+					temp = av.carStorage.get(i);
+					av.carStorage.set(i, av.carStorage.get(j));
+					av.carStorage.set(j, temp);
 				}
 			}
 		}

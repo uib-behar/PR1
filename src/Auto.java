@@ -6,12 +6,12 @@ public class Auto {
 	private int kmStand;
 	private boolean vermietet;
 
-	public Auto(String id, String marke, int kmStand, boolean vermietet) {
+	public Auto(String id, String marke, int kmStand) {
 
 		setId(id);
 		this.marke = marke;
 		this.kmStand = kmStand;
-		this.vermietet = vermietet;
+		isVermietet();
 	}
 
 	public String getId() {

@@ -1,29 +1,28 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import org.omg.Messaging.SyncScopeHelper;
 
 public class RentACar {
 
+
 	static Scanner sc = new Scanner(System.in);
 
-	static ArrayList <Kunden> kundenListe = new ArrayList<>();
-
-
 	public static void main(String[] args) {
+
+		AutoVermietung av = new AutoVermietung();
+
 
 		String name = "";
 		boolean b = true;
 
 		Kunden kunde = null;
 
-		AutoVermietung.getCarStorage().add(new Auto("MA-X-1","BMW 118",10000,false));
-		AutoVermietung.getCarStorage().add(new Auto("MA-QF-203", "Skoda Fabia", 23400, false));
-		AutoVermietung.getCarStorage().add(new Auto("MA-A-11", "Audi A3", 15750, false));
-		AutoVermietung.getCarStorage().add(new Auto("HD-BF-449", "Renault Sandero", 73000, false));
-		AutoVermietung.getCarStorage().add(new Auto("HH-A-09", "VW Golf VII", 25400, false));
-		AutoVermietung.getCarStorage().add(new Auto("F-FM-60", "Opel Astra", 12500, false)); 
-		AutoVermietung.getCarStorage().add(new Auto("HH-BW-68", "Mercedes-Benz A200", 45250, false));
+		av.getCarStorage().add(new Auto("MA-X-1","BMW 118",10000));
+		av.getCarStorage().add(new Auto("MA-QF-203", "Skoda Fabia", 23400));
+		av.getCarStorage().add(new Auto("MA-A-11", "Audi A3", 15750));
+		av.getCarStorage().add(new Auto("HD-BF-449", "Renault Sandero", 73000));
+		av.getCarStorage().add(new Auto("HH-A-09", "VW Golf VII", 25400));
+		av.getCarStorage().add(new Auto("F-FM-60", "Opel Astra", 12500)); 
+		av.getCarStorage().add(new Auto("HH-BW-68", "Mercedes-Benz A200", 45250));
 
 		System.out.println("Wilkommen bei Drive'N Life!");
 
@@ -40,7 +39,7 @@ public class RentACar {
 				name = sc.nextLine();
 
 				kunde = new Kunden(name);
-				kundenDatenAnlegen(kunde);
+				av.kundenDatenAnlegen(kunde);
 			}
 
 
@@ -52,9 +51,9 @@ public class RentACar {
 				int zahl = Integer.parseInt(sc.nextLine());
 
 				if (zahl ==1) {
-					System.out.print(AutoVermietung.getDetailsOfStorage() + "\n\nIhre Wahl: ");
+					System.out.print(av.getDetailsOfStorage() + "\n\nIhre Wahl: ");
 					position = Integer.parseInt(sc.nextLine());
-					kunde.wunschAutowählen(kunde, position);
+					av.wunschAutowählen(kunde, position, av);
 				}
 
 				else if (zahl == 2) {
@@ -65,11 +64,12 @@ public class RentACar {
 					System.out.println("Wie viele Km sind Sie gefahren?");
 					int drived = Integer.parseInt(sc.nextLine());
 					kunde.autos.get(position).setKmStand(kunde.autos.get(position).getKmStand(), drived);
-					AutoVermietung.getCarStorage().get(position).setVermietet(false);
+					kunde.autos.get(position).setVermietet(false);
+//					av.getCarStorage().get(position).setVermietet(false);
 
-					Auto a = kunde.autos.get(position);
-					AutoVermietung.carStorage.add(a);
-
+//					Auto a = kunde.autos.get(position);
+						av.carStorage.add(kunde.autos.get(position));
+						
 					kunde.returnCar(kunde,position);
 
 				}
@@ -89,7 +89,7 @@ public class RentACar {
 			int x = Integer.parseInt(sc.nextLine());
 
 			if (x == 1) {
-				kundenSetzen(kunde);
+				av.kundenSetzen(kunde);
 				b = true;
 
 			} else if(x == 2) {
@@ -101,37 +101,6 @@ public class RentACar {
 		} while (b);
 		System.out.println("Gute Fahrt!");
 
-	}
-
-
-	public static void kundenDatenAnlegen(Kunden kunde) {
-
-		kundenListe.add(kunde);
-
-		for(int i = 0; i < kundenListe.size(); i++) {
-			if(kundenListe.get(i).getName().equals(kunde.getName())) {
-				kundenListe.get(i).setKundenNr();
-			}
-		}
-
-		System.out.println("\nEs wurde ein neuer Kundenstamm angelegt: " + "\nIhre Kundennummer: " + kunde.getKundenNr() + "\n Name: "
-				+ kunde.getName());
-
-	}
-
-	public static Kunden kundenSetzen(Kunden kunde) {
-
-		for(int i = 0; i < kundenListe.size(); i++) {
-
-			if(kundenListe.get(i).getName().equals(kunde.getName())) {
-
-				return kundenListe.get(i);
-
-			}
-
-		}
-
-		return null;
 	}
 
 }
