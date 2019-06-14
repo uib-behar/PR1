@@ -6,6 +6,17 @@ public class AutoVermietung {
 	ArrayList<Auto> carStorage = new ArrayList<>();
 	
 	ArrayList<Kunden> kundenListe = new ArrayList<>();
+	
+	public AutoVermietung() {
+		
+		carStorage.add(new Auto("MA-X-1","BMW 118",10000));
+		carStorage.add(new Auto("MA-QF-203", "Skoda Fabia", 23400));
+		carStorage.add(new Auto("MA-A-11", "Audi A3", 15750));
+		carStorage.add(new Auto("HD-BF-449", "Renault Sandero", 73000));
+		carStorage.add(new Auto("HH-A-09", "VW Golf VII", 25400));
+		carStorage.add(new Auto("F-FM-60", "Opel Astra", 12500)); 
+		carStorage.add(new Auto("HH-BW-68", "Mercedes-Benz A200", 45250));
+	}
 
 
 	public ArrayList<Auto> getCarStorage() {
@@ -22,7 +33,7 @@ public class AutoVermietung {
 		String erg = "";
 		int c = 1;
 
-		for (Auto a : carStorage) {
+		for (Auto a : getCarStorage()) {
 
 			if(a.isVermietet()==false) {
 			erg += "\n" + c + ": " + a.getMarke();
@@ -63,16 +74,16 @@ public class AutoVermietung {
 
 	}
 	
-	public void wunschAutowählen(Kunden kunde, int position, AutoVermietung av) {
+	public void wunschAutowählen(Kunden kunde, int position) {
 
-		for(int i = 0; i < av.carStorage.size(); i++) {
+		for(int i = 0; i < getCarStorage().size(); i++) {
 
-			if(av.getCarStorage().get(i).isVermietet() == false) {
-				kunde.addAuto(av.getCarStorage().get(position-1));
-				av.getCarStorage().get(position-1).setVermietet(true);
+			if(getCarStorage().get(i).isVermietet() == false) {
+				kunde.addAuto(getCarStorage().get(position-1));
+				getCarStorage().get(position-1).setVermietet(true);
 
-				if(av.getCarStorage().get(i).isVermietet()==true) {
-					listeSortieren(av);
+				if(getCarStorage().get(i).isVermietet()==true) {
+					listeSortieren();
 				}
 								
 				break;
@@ -86,18 +97,18 @@ public class AutoVermietung {
 	}
 	
 	
-	public void listeSortieren(AutoVermietung av) {
+	public void listeSortieren() {
 
 		Auto temp = null;
 
-		for(int i = 0; i < av.carStorage.size(); i++) {
-			for(int j = i+1; j<av.carStorage.size(); j++) {
+		for(int i = 0; i < getCarStorage().size(); i++) {
+			for(int j = i+1; j<getCarStorage().size(); j++) {
 				
-				if(av.getCarStorage().get(i).isVermietet()==true) {
+				if(getCarStorage().get(i).isVermietet()==true) {
 					
-					temp = av.carStorage.get(i);
-					av.carStorage.set(i, av.carStorage.get(j));
-					av.carStorage.set(j, temp);
+					temp = getCarStorage().get(i);
+					getCarStorage().set(i, getCarStorage().get(j));
+					getCarStorage().set(j, temp);
 				}
 			}
 		}

@@ -10,22 +10,13 @@ public class RentACar {
 
 		AutoVermietung av = new AutoVermietung();
 
-
 		String name = "";
 		boolean b = true;
 
 		Kunden kunde = null;
-
-		av.getCarStorage().add(new Auto("MA-X-1","BMW 118",10000));
-		av.getCarStorage().add(new Auto("MA-QF-203", "Skoda Fabia", 23400));
-		av.getCarStorage().add(new Auto("MA-A-11", "Audi A3", 15750));
-		av.getCarStorage().add(new Auto("HD-BF-449", "Renault Sandero", 73000));
-		av.getCarStorage().add(new Auto("HH-A-09", "VW Golf VII", 25400));
-		av.getCarStorage().add(new Auto("F-FM-60", "Opel Astra", 12500)); 
-		av.getCarStorage().add(new Auto("HH-BW-68", "Mercedes-Benz A200", 45250));
+		
 
 		System.out.println("Wilkommen bei Drive'N Life!");
-
 
 		do {
 
@@ -50,12 +41,15 @@ public class RentACar {
 						+ "\nShow My Storage - 3 \n > ");
 				int zahl = Integer.parseInt(sc.nextLine());
 
-				if (zahl ==1) {
+				if ( zahl == 1) {
+			
 					System.out.print(av.getDetailsOfStorage() + "\n\nIhre Wahl: ");
 					position = Integer.parseInt(sc.nextLine());
-					av.wunschAutowählen(kunde, position, av);
-				}
 
+
+					av.wunschAutowählen(kunde, position);
+
+				}
 				else if (zahl == 2) {
 					System.out.println(kunde.getAutos());
 					System.out.print("Bitte Auto auswählen \t> ");
@@ -63,13 +57,12 @@ public class RentACar {
 
 					System.out.println("Wie viele Km sind Sie gefahren?");
 					int drived = Integer.parseInt(sc.nextLine());
-					kunde.autos.get(position).setKmStand(kunde.autos.get(position).getKmStand(), drived);
-					kunde.autos.get(position).setVermietet(false);
-//					av.getCarStorage().get(position).setVermietet(false);
+					kunde.autos.get(position).setKmStand(drived);
 
-//					Auto a = kunde.autos.get(position);
-						av.carStorage.add(kunde.autos.get(position));
-						
+					kunde.autos.get(position).setVermietet(false);
+
+					av.carStorage.add(kunde.autos.get(position));
+
 					kunde.returnCar(kunde,position);
 
 				}

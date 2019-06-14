@@ -50,7 +50,7 @@ public class Kunden {
 	}
 
 	public static void kundenDatenAnlegen(Kunden kunde) {
-		
+
 		kunde.setKundenNr();
 
 		System.out.println("Es wurde ein neuer Kundenstamm angelegt: " + "\nIhre KundenNr lautet: "
@@ -77,43 +77,5 @@ public class Kunden {
 
 	}
 
-	public void wunschAutowählen(Kunden kunde, int position, AutoVermietung av) {
-
-		for(int i = 0; i < av.carStorage.size(); i++) {
-
-			if(av.getCarStorage().get(i).isVermietet() == false) {
-				kunde.addAuto(av.getCarStorage().get(position-1));
-				av.getCarStorage().get(position-1).setVermietet(true);
-
-				if(av.getCarStorage().get(i).isVermietet()==true) {
-					listeSortieren(av);
-				}
-								
-				break;
-
-			}
-
-		}
-
-		System.out.println(kunde.getAutos());
-
-	}
-
-	public void listeSortieren(AutoVermietung av) {
-
-		Auto temp = null;
-
-		for(int i = 0; i < av.carStorage.size(); i++) {
-			for(int j = i+1; j<av.carStorage.size(); j++) {
-				
-				if(av.getCarStorage().get(i).isVermietet()==true) {
-					
-					temp = av.carStorage.get(i);
-					av.carStorage.set(i, av.carStorage.get(j));
-					av.carStorage.set(j, temp);
-				}
-			}
-		}
-	}
 
 }

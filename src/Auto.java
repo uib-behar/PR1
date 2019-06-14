@@ -11,7 +11,7 @@ public class Auto {
 		setId(id);
 		this.marke = marke;
 		this.kmStand = kmStand;
-		isVermietet();
+		setVermietet(false);
 	}
 
 	public String getId() {
@@ -34,7 +34,7 @@ public class Auto {
 		return kmStand;
 	}
 
-	public void setKmStand(int kmStand, int gefahreneKm) {
+	public void setKmStand(int gefahreneKm) {
 		this.kmStand = kmStand + gefahreneKm;
 	}
 
